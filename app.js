@@ -1,7 +1,10 @@
 var express = require('express');
 var path = require('path');
+const fs = require("fs");
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -16,5 +19,60 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.post("/", (req, res) => {
+    fs.readFile("country.json", (err, data) => {
+        if (err) {
+            console.log(err);
+            res.status(400).json({ success: false });
+            return;
+        }
+
+        const country = JSON.parse(data);
+        country.push(req.body);
+        fs.writeFile("country.json", JSON.stringify(country, null, 2), (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+        res.status(200).json({ success: true });
+    })
+});
+
+app.post("/index", (req, res) => {
+    fs.readFile("country.json", (err, data) => {
+        if (err) {
+            console.log(err);
+            res.status(400).json({ success: false });
+            return;
+        }
+
+        const country = JSON.parse(data);
+        country.push(req.body);
+        fs.writeFile("country.json", JSON.stringify(country, null, 2), (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+        res.status(200).json({ success: true });
+    })
+});
+
+app.get("/index", (req, res) => {
+    fs.readFile("country.json", (err, data) => {
+        if (err) {
+            console.log(err);
+            res.status(400).json({ success: false });
+            return;
+        }
+
+        const country = JSON.parse(data);
+
+        res.send(country);
+    })
+});
+
+
+app.listen(5000, () => console.log("Express app is running...."));
 
 module.exports = app;

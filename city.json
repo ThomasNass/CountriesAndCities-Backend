@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "cityname": "Stockholm",
+        "countryid": 1,
+        "population": 1538517
+    },
+    {
+        "id": 2,
+        "cityname": "Turku",
+        "countryid": 2,
+        "population": 269057
+    },
+    {
+        "id": 3,
+        "cityname": "Norrköping",
+        "countryid": 1,
+        "population": 95618
+    },
+    {
+        "id": 4,
+        "cityname": "Fredrikstad",
+        "countryid": 3,
+        "population": 109907
+    },
+    {
+        "id": 5,
+        "cityname": "Trondheim",
+        "countryid": 3,
+        "population": 177617
+    },
+    {
+        "id": 6,
+        "cityname": "Göteborg",
+        "countryid": 1,
+        "population": 581822
+    },
+    {
+        "id": 7,
+        "cityname": "Västerås",
+        "countryid": 1,
+        "population": 119373
+    },
+    {
+        "id": 8,
+        "cityname": "Tampere",
+        "countryid": 2,
+        "population": 330711
+    },
+    {
+        "id": 9,
+        "cityname": "Bergen",
+        "countryid": 3,
+        "population": 252772
+    },
+    {
+        "id": 10,
+        "cityname": "Malmö",
+        "countryid": 1,
+        "population": 307496
+    },
+    {
+        "id": 11,
+        "cityname": "Oslo",
+        "countryid": 3,
+        "population": 975744
+    },
+    {
+        "id": 12,
+        "cityname": "Helsingfors",
+        "countryid": 2,
+        "population": 1249820
+    },
+    {
+        "id": 13,
+        "cityname": "Oulu",
+        "countryid": 2,
+        "population": 198358
+    },
+    {
+        "id": 14,
+        "cityname": "Uppsala",
+        "countryid": 1,
+        "population": 152617
+    },
+    {
+        "id": 15,
+        "cityname": "Jyväskylä",
+        "countryid": 2,
+        "population": 121782
+    }
+]
