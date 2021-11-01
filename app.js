@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-app.post("/", (req, res) => {
+app.post("/country", (req, res) => {
     fs.readFile("country.json", (err, data) => {
         if (err) {
             console.log(err);
@@ -39,26 +39,7 @@ app.post("/", (req, res) => {
     })
 });
 
-app.post("/index", (req, res) => {
-    fs.readFile("country.json", (err, data) => {
-        if (err) {
-            console.log(err);
-            res.status(400).json({ success: false });
-            return;
-        }
-
-        const country = JSON.parse(data);
-        country.push(req.body);
-        fs.writeFile("country.json", JSON.stringify(country, null, 2), (err) => {
-            if (err) {
-                console.log(err);
-            }
-        });
-        res.status(200).json({ success: true });
-    })
-});
-
-app.get("/index", (req, res) => {
+app.get("/country", (req, res) => {
     fs.readFile("country.json", (err, data) => {
         if (err) {
             console.log(err);
@@ -69,6 +50,39 @@ app.get("/index", (req, res) => {
         const country = JSON.parse(data);
 
         res.send(country);
+    })
+});
+
+app.post("/city", (req, res) => {
+    fs.readFile("city.json", (err, data) => {
+        if (err) {
+            console.log(err);
+            res.status(400).json({ success: false });
+            return;
+        }
+
+        const city = JSON.parse(data);
+        city.push(req.body);
+        fs.writeFile("city.json", JSON.stringify(city, null, 2), (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+        res.status(200).json({ success: true });
+    })
+});
+
+app.get("/city", (req, res) => {
+    fs.readFile("city.json", (err, data) => {
+        if (err) {
+            console.log(err);
+            res.status(400).json({ success: false });
+            return;
+        }
+
+        const city = JSON.parse(data);
+
+        res.send(city);
     })
 });
 

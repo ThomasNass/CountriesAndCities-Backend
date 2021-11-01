@@ -1,25 +1,38 @@
 const countryInput = document.querySelector("#country");
-const city = document.querySelector("#city");
+const cityInput = document.querySelector("#city");
 const submitCountry = document.querySelector("#submitCountry");
 const submitCity = document.querySelector("#submitCity");
 const selector = document.querySelector("#selector");
+const population = document.querySelector("#population");
 
+//Getting the country json from backend
 const fetchCountry = async () => {
-    const countries = await fetch("http://localhost:5000/index");
+    const countries = await fetch("http://localhost:5000/country");
     const data = await countries.json();
     return data;
 }
+//Getting the city json from backend
+const fetchCity = async () => {
+    const cities = await fetch("http://localhost:5000/city");
+    const data = await cities.json();
+    console.log(data);
+    return data;
+}
+//A function to empty the contents of an element
 const eraser = (x) => {
     while (x.firstChild) {
-
         x.firstChild.remove();
-        console.log(x.firstChild);
     }
 }
+//Function to fill the select with countries from the json after emptying it first
 const populateSelect = async () => {
-    eraser(selector);
-    console.log(selector);
     const data = await fetchCountry();
+    eraser(selector);
+    //making it so that a country has to be selected actively
+    const option = document.createElement("option");
+    option.textContent = "Pick the country that the city belongs to";
+    option.value = null;
+    selector.appendChild(option);
     for (let i = 0; i < data.length; i++) {
         const option = document.createElement("option");
         option.value = data[i].countryname;
@@ -28,13 +41,9 @@ const populateSelect = async () => {
     }
 }
 
-
-
 populateSelect();
-eraser(selector);
 
-
-
+//Function to add countries to the json at the backend
 const addCountry = async () => {
     const forId = await fetchCountry();
     for (let i = 0; i < forId.length; i++) {
@@ -43,9 +52,10 @@ const addCountry = async () => {
             return;
         }
     }
+    //Formatting the object to match the json-file
     const countryFormatted = { id: forId.length + 1, countryname: countryInput.value }
 
-    const countries = await fetch("http://localhost:5000/index", {
+    const countries = await fetch("http://localhost:5000/country", {
         method: "POST",
         headers: {
             "Content-type": "application/json"
@@ -53,22 +63,56 @@ const addCountry = async () => {
         body: JSON.stringify(countryFormatted),
     });
     const data = await countries.json();
+    populateSelect();
     return data;
 }
 
-const addCity = () => {
+//Function to add cities to the json file at the backend
+//Almost identical to the addCountries function
+const addCity = async (countryId) => {
+    const forId = await fetchCity();
+    for (let i = 0; i < forId.length; i++) {
+        if (forId[i].cityname == cityInput.value) {
+            alert("city already exists!");
+            return;
+        }
+    }
+    const cityFormatted = { id: forId.length + 1, cityname: cityInput.value, countryid: countryId, population: population.value }
 
+    const cities = await fetch("http://localhost:5000/city", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(cityFormatted),
+    });
+    const data = await cities.json();
+    return data;
 }
 
 submitCountry.addEventListener("click", () => {
-
     addCountry();
-
 })
 
-submitCountry.addEventListener("click", () => {
+//Getting the country from the select
+let choice;
+selector.addEventListener("change", (event) => {
+    choice = event.target.value;
+});
 
-    addCity();
+//making sure the user provides a country and a population when adding a city
+//getting the ID from the country json so that i can be matched and added with the city json
+submitCity.addEventListener("click", async () => {
+    if (population.value > 0 && choice != null) {
+        const forCountryId = await fetchCountry();
+        for (let i = 0; i < forCountryId.length; i++) {
+            if (forCountryId[i].countryname == choice) {
+                const countryId = forCountryId[i].id;
+                console.log(countryId, choice);
+                addCity(countryId);
+            }
+        }
+    }
 
-})
+});
 
