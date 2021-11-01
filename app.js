@@ -86,7 +86,7 @@ app.get("/city", (req, res) => {
     })
 });
 
-
-app.listen(5000, () => console.log("Express app is running...."));
+const PORT = process.env.PORT || 80;
+app.listen(PORT, () => console.log(`Express app is running on port ${PORT}`));
 
 module.exports = app;
