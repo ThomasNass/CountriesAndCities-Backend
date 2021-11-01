@@ -7,13 +7,15 @@ const population = document.querySelector("#population");
 
 //Getting the country json from backend
 const fetchCountry = async () => {
-    const countries = await fetch("http://localhost:5000/country");
+    //http://localhost:5000/country for local use
+    const countries = await fetch("/country");
     const data = await countries.json();
     return data;
 }
 //Getting the city json from backend
 const fetchCity = async () => {
-    const cities = await fetch("http://localhost:5000/city");
+    //http://localhost:5000/city for local use
+    const cities = await fetch("/city");
     const data = await cities.json();
     console.log(data);
     return data;
@@ -55,7 +57,8 @@ const addCountry = async () => {
     //Formatting the object to match the json-file
     const countryFormatted = { id: forId.length + 1, countryname: countryInput.value }
 
-    const countries = await fetch("http://localhost:5000/country", {
+    //http://localhost:5000/country for local use
+    const countries = await fetch("/country", {
         method: "POST",
         headers: {
             "Content-type": "application/json"
@@ -79,7 +82,8 @@ const addCity = async (countryId) => {
     }
     const cityFormatted = { id: forId.length + 1, cityname: cityInput.value, countryid: countryId, population: population.value }
 
-    const cities = await fetch("http://localhost:5000/city", {
+    //http://localhost:5000/city for local use
+    const cities = await fetch("/city", {
         method: "POST",
         headers: {
             "Content-type": "application/json"
