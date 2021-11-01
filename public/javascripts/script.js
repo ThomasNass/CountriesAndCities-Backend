@@ -79,7 +79,7 @@ const addCity = async (countryId) => {
             return;
         }
     }
-    const cityFormatted = { id: forId.length + 1, cityname: cityInput.value, countryid: countryId, population: population.value }
+    const cityFormatted = { id: forId.length + 1, cityname: cityInput.value, countryid: countryId, population: parseInt(population.value) }
 
     //http://localhost:5000/city for local use
     const cities = await fetch("/city", {
