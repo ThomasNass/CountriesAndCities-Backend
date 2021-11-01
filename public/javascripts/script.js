@@ -17,7 +17,6 @@ const fetchCity = async () => {
     //http://localhost:5000/city for local use
     const cities = await fetch("/city");
     const data = await cities.json();
-    console.log(data);
     return data;
 }
 //A function to empty the contents of an element
@@ -112,7 +111,6 @@ submitCity.addEventListener("click", async () => {
         for (let i = 0; i < forCountryId.length; i++) {
             if (forCountryId[i].countryname == choice) {
                 const countryId = forCountryId[i].id;
-                console.log(countryId, choice);
                 addCity(countryId);
             }
         }
